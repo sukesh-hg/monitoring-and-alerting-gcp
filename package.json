@@ -1,0 +1,9 @@
+{
+  "name": "gcp-alerting",
+  "author": "sukesh-hg",
+  "version": "0.0.1",
+  "dependencies": {
+    "@google-cloud/pubsub": "^0.18.0",
+    "node-fetch":"^2.6.0"
+  }
+}
