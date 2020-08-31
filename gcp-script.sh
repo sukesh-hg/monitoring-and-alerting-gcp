@@ -14,8 +14,8 @@ echo "Setting up th Sink ..."
 gcloud logging sinks create $logsink pubsub.googleapis.com/projects/$GOOGLE_CLOUD_PROJECT/topics/$topic --log-filter 'resource.type="gce_instance" AND protoPayload.methodName="beta.compute.instances.insert" AND operation.last=true'
 
 #Grant permissions on the topic
-echo "Step 3: Granting access for SA on the topic"
-gcloud logging sinks describe automation --format='value(writerIdentity)' | sed -E  's/(.*):(.*)/\2/'
+echo "Step 3: Granting access for Service Account on the topic"
+gcloud logging sinks describe $logsink --format='value(writerIdentity)' | sed -E  's/(.*):(.*)/\2/'
 gcloud pubsub topics add-iam-policy-binding $topic --member=$(gcloud logging sinks describe $logsink --format='value(writerIdentity)') --role='roles/pubsub.publisher'
 
 #setup cloud-function
